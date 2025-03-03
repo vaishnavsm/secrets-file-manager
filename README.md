@@ -14,7 +14,7 @@ This is just an extremely simple implementation.
 ## Usage
 
 ```bash
-secrets-file-manager init > config.secrets-file-manager.yaml
+secrets-file-manager init > .secrets-file-manager.yaml
 # edit paths
 secrets-file-manager gen-gitignore >> .gitignore
 secrets-file-manager sync

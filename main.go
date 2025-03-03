@@ -35,7 +35,7 @@ func setLogLevel(level string) {
 }
 
 func init() {
-	flag.StringVar(&configFile, "config", "config.secrets-file-manager.yaml", "path to config file")
+	flag.StringVar(&configFile, "config", ".secrets-file-manager.yaml", "path to config file")
 	flag.StringVar(&forceSync, "force-sync", "", "force sync in a particular direction. options: from-crypt, to-crypt")
 	flag.StringVar(&logLevel, "log-level", "error", "log level, can be debug, info, warn, error")
 }
@@ -100,7 +100,7 @@ func printUsage() {
 }
 
 func handleInit() {
-	fmt.Println("# pipe to config.secrets-file-manager.yaml")
+	fmt.Println("# pipe to .secrets-file-manager.yaml")
 	fmt.Println(config.CreateConfigFile())
 }
 func handleGenGitignore(config *config.Config) {
