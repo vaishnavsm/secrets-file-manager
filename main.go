@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/rand"
+	"encoding/base64"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -79,6 +81,8 @@ func main() {
 	case "help":
 		printUsage()
 		os.Exit(1)
+	case "gen-password":
+		handleGenPassword(config)
 	default:
 		printUsage()
 		os.Exit(1)
@@ -92,6 +96,7 @@ func printUsage() {
 	fmt.Println("\nCommands:")
 	fmt.Println("  init  			Create config file template")
 	fmt.Println("  gen-gitignore  	Generate .gitignore file")
+	fmt.Println("  gen-password  	Generate password file")
 	fmt.Println("  sync          	Sync secrets files")
 	fmt.Println("  watch         	Watch for changes")
 	fmt.Println("  help          	Show this help message")
@@ -105,6 +110,15 @@ func handleInit() {
 }
 func handleGenGitignore(config *config.Config) {
 	gitignore.GenerateGitignore(config)
+}
+
+func handleGenPassword(config *config.Config) {
+	passwordBytes := make([]byte, 64)
+	rand.Read(passwordBytes)
+	password := base64.StdEncoding.EncodeToString(passwordBytes)
+
+	os.WriteFile(config.PasswordFile, []byte(password), 0600)
+	fmt.Println("Password file created at " + config.PasswordFile)
 }
 
 func handleSync(config *config.Config) {
